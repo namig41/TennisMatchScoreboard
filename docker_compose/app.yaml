@@ -1,0 +1,17 @@
+services:
+  main-app:
+    container_name: main-app
+    build: ..
+    command: 'uvicorn --factory presenter.api.main:create_app --reload --host 0.0.0.0 --port 8000'
+    ports:
+      - '${API_PORT}:8000'
+    volumes:
+      - ../app/:/app
+    env_file:
+      - ../.env
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
